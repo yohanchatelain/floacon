@@ -41,7 +41,7 @@ void fpconvert_convert(const char *input, int *base_ptr, format_t source_fmt,
   mpfr_strtofr(x, input, NULL, base, rnd);
 
   fpconvert_set_context(target_fmt);
-  int t = mpfr_add_ui(x, x, 0, rnd);
+  int t = mpfr_prec_round(x, target_fmt.precision, rnd);
   t = mpfr_check_range(x, t, rnd);
   mpfr_subnormalize(x, t, rnd);
 }

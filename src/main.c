@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 
   mpfr_t x;
   fpconvert_convert(value, NULL, input_fmt, output_fmt, MPFR_RNDN, x);
-  mpfr_printf("%Rf\n", x);
+  mpfr_printf("%Ra\n", x);
 
   return 0;
 }
