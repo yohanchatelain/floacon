@@ -1,16 +1,8 @@
 import subprocess
+import pytest
+import fp_format as fpfmt
 
 floacon_path = '../floacon'
-
-
-class Format:
-    def __init__(self, precision, exponent):
-        self.precision = precision
-        self.exponent = exponent
-
-
-binary32 = Format(24, 8)
-binary64 = Format(53, 11)
 
 
 def call_floacon(value, input_fmt, output_fmt):
@@ -23,20 +15,23 @@ def call_floacon(value, input_fmt, output_fmt):
     return ret.stdout.strip()
 
 
-def test_binary64_to_binary32(value, expected):
-    return call_floacon(value, binary64, binary32)
+def run_test_binary64_to_binary32(value):
+    return call_floacon(value, fpfmt.binary64, fpfmt.binary32)
 
 
-def run(inputs_file):
+def check_input(test_binary, line):
+    input_value, output_value = line.strip().split()
+    ret = test_binary(input_value)
+    err_msg = f'Error: expected {output_value} does not match computed {ret}'
+    assert float.fromhex(ret.decode()) == float.fromhex(output_value), err_msg
 
-    with open(inputs_file) as fi:
+
+@pytest.mark.parametrize('format', [])
+def test(inputs_file):
+    with open(file=inputs_file, mode='r', encoding='utf-8') as fi:
         for line in fi:
-            input_value, output_value = line.strip().split()
-            ret = test_binary64_to_binary32(input_value, output_value)
-            if float.fromhex(ret.decode()) != float.fromhex(output_value):
-                print(
-                    f'Error: expected {output_value} does not match computed {ret}')
+            check_input(run_test_binary64_to_binary32, line)
 
 
 if __name__ == '__main__':
-    run('inputs.txt')
+    test('inputs.txt')

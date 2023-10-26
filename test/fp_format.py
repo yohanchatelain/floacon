@@ -342,5 +342,4 @@ class BinaryIEEE754Format(BinaryFormat):
 binary16 = BinaryIEEE754Format(np.float16)
 binary32 = BinaryIEEE754Format(np.float32)
 binary64 = BinaryIEEE754Format(np.float64)
-
 bfloat16 = BinaryFormat(8, 7)
