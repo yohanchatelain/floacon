@@ -1,6 +1,5 @@
 all:
 	$(MAKE) -C src
-	cp src/floacon .
 
 .PHONY: test clean
 
