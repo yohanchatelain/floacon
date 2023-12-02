@@ -1,0 +1,13 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/yohan/Work/floacon'
+make -C src
+make[1]: Entering directory '/home/yohan/Work/floacon/src'
+cc -c  converter.c -o converter.o -lmpfr -lgmp
+cc -c  extractor.c -o extractor.o -lmpfr -lgmp
+cc -c  main.c -o main.o -lmpfr -lgmp
+cc -c  printer.c -o printer.o -lmpfr -lgmp
+cc  converter.o  extractor.o  main.o  printer.o -o floacon -lmpfr -lgmp
+make[1]: Leaving directory '/home/yohan/Work/floacon/src'
+cp src/floacon .
+make: Leaving directory '/home/yohan/Work/floacon'
+ 
